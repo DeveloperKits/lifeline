@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">LifeLine</string>
+
+    <string name="otp_veri_number_text">An authentication code has been sent to</string>
+    <string name="verify">Verify</string>
+
+    // use in fragment_registration.xml file
+    <string name="register">Register</string>
+    <string name="regis_text">Enter your details</string>
+    <string name="reg_check_text"><![CDATA[I accept the <Lifeline> Terms of Services and Privacy policy]]></string>
+    <string name="email">Email</string>
+    <string name="number">Number</string>
+    <string name="demo_email">shadman4work@gmail.com</string>
+    <string name="demo_number">+8801100000000</string>
+
+</resources>
