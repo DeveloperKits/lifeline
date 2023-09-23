@@ -74,13 +74,13 @@
         android:layout_width="70dp"
         android:layout_height="90dp"
         android:layout_marginTop="40dp"
-        android:layout_marginStart="9dp"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeWidth="2dp"
         app:boxStrokeColor="@color/app_main_color"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/code2"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/verification_number">
 
@@ -100,15 +100,14 @@
         style="?attr/textInputOutlinedStyle"
         android:layout_width="70dp"
         android:layout_height="90dp"
-        android:layout_marginStart="9dp"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeWidth="2dp"
         app:boxStrokeColor="@color/app_main_color"
+        app:boxStrokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/code1"
-        app:layout_constraintStart_toEndOf="@+id/code1"
+        app:layout_constraintEnd_toStartOf="@+id/code3"
         app:layout_constraintTop_toTopOf="@+id/code1">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -127,15 +126,14 @@
         style="?attr/textInputOutlinedStyle"
         android:layout_width="70dp"
         android:layout_height="90dp"
-        android:layout_marginStart="9dp"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeWidth="2dp"
         app:boxStrokeColor="@color/app_main_color"
+        app:boxStrokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/code2"
-        app:layout_constraintStart_toEndOf="@+id/code2"
+        app:layout_constraintEnd_toStartOf="@+id/code4"
         app:layout_constraintTop_toTopOf="@+id/code2">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -154,15 +152,14 @@
         style="?attr/textInputOutlinedStyle"
         android:layout_width="70dp"
         android:layout_height="90dp"
-        android:layout_marginStart="9dp"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeWidth="2dp"
         app:boxStrokeColor="@color/app_main_color"
+        app:boxStrokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/code3"
-        app:layout_constraintStart_toEndOf="@+id/code3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/code3">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -181,7 +178,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="80dp"
         android:text="@string/verify"
         android:textStyle="bold"
         android:fontFamily="@font/poppins"

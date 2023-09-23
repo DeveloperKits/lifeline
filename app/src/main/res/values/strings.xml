@@ -12,5 +12,7 @@
     <string name="number">Number</string>
     <string name="demo_email">shadman4work@gmail.com</string>
     <string name="demo_number">+8801100000000</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
