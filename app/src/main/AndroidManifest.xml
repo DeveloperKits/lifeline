@@ -11,20 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LifeLine"
         tools:targetApi="33">
-        <activity
-            android:name=".Activity.NIDScan"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.OTP_Verification"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.Registration"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

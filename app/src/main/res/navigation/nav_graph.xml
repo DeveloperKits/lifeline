@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreenFragment">
+    app:startDestination="@id/NIDInfoFragment">
 
     <fragment
         android:id="@+id/registrationFragment"
@@ -20,4 +20,14 @@
         android:name="com.developerkits.lifeline.Fragment.OTP_verificationFragment"
         android:label="fragment_otp_verification"
         tools:layout="@layout/fragment_otp_verification" />
+    <fragment
+        android:id="@+id/NIDScanFragment"
+        android:name="com.developerkits.lifeline.Fragment.NIDScanFragment"
+        android:label="fragment_nid_scan"
+        tools:layout="@layout/fragment_nid_scan" />
+    <fragment
+        android:id="@+id/NIDInfoFragment"
+        android:name="com.developerkits.lifeline.Fragment.NIDInfoFragment"
+        android:label="fragment_nid_info"
+        tools:layout="@layout/fragment_nid_info" />
 </navigation>

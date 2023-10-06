@@ -51,7 +51,7 @@
             android:fontFamily="@font/poppins_medium"
             android:text="@string/email"
             android:textSize="14sp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="@dimen/forty_dp"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -60,7 +60,6 @@
             android:id="@+id/email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/demo_email"
             app:hintTextColor="@color/app_main_color"
             app:boxCornerRadiusBottomEnd="@dimen/ten_dp"
             app:boxCornerRadiusBottomStart="@dimen/ten_dp"
@@ -76,6 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+                android:text="@string/demo_email"
+                android:textIsSelectable="true"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -85,7 +86,6 @@
             style="?attr/textInputOutlinedStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/demo_number"
             app:hintTextColor="@color/app_main_color"
             app:boxCornerRadiusBottomEnd="@dimen/ten_dp"
             app:boxCornerRadiusBottomStart="@dimen/ten_dp"
@@ -101,6 +101,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
+                android:text="@string/demo_number"
+                android:textIsSelectable="true"
                 android:inputType="number"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -123,6 +125,7 @@
             android:layout_marginTop="15dp"
             android:minHeight="25dp"
             android:minWidth="25dp"
+            android:layout_marginStart="-7dp"
             android:buttonTint="@color/app_main_color"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/number" />
