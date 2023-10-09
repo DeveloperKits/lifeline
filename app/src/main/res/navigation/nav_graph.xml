@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/NIDInfoFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/registrationFragment"
@@ -30,4 +30,9 @@
         android:name="com.developerkits.lifeline.Fragment.NIDInfoFragment"
         android:label="fragment_nid_info"
         tools:layout="@layout/fragment_nid_info" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.developerkits.lifeline.Fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 </navigation>

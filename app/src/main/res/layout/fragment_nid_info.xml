@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/twenty_dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="NID Number"
+                android:text="@string/nid_number"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -87,7 +87,6 @@
                 style="?attr/textInputOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="12345678910257894"
                 app:boxCornerRadiusBottomEnd="@dimen/ten_dp"
                 app:boxCornerRadiusBottomStart="@dimen/ten_dp"
                 app:boxCornerRadiusTopEnd="@dimen/ten_dp"
@@ -99,6 +98,7 @@
                     android:id="@+id/nid_number_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/demo_nid"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp" />
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/twenty_dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Applicants Name"
+                android:text="@string/applicants_name"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -118,7 +118,6 @@
                 style="?attr/textInputOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Shadman Sakib"
                 app:boxCornerRadiusBottomEnd="@dimen/ten_dp"
                 app:boxCornerRadiusBottomStart="@dimen/ten_dp"
                 app:boxCornerRadiusTopEnd="@dimen/ten_dp"
@@ -130,6 +129,7 @@
                     android:id="@+id/applicants_name_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/demo_name"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp" />
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/twenty_dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Father Name"
+                android:text="@string/father_name"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -149,7 +149,7 @@
                 style="?attr/textInputOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Md. Jalal Uddin"
+                app:endIconMode="clear_text"
                 app:boxCornerRadiusBottomEnd="@dimen/ten_dp"
                 app:boxCornerRadiusBottomStart="@dimen/ten_dp"
                 app:boxCornerRadiusTopEnd="@dimen/ten_dp"
@@ -161,6 +161,7 @@
                     android:id="@+id/father_name_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/demo_father_name"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp" />
@@ -172,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/twenty_dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Mother Name"
+                android:text="@string/mother_name"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -180,7 +181,7 @@
                 style="?attr/textInputOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mrs. Shapla"
+                app:endIconMode="clear_text"
                 app:boxCornerRadiusBottomEnd="@dimen/ten_dp"
                 app:boxCornerRadiusBottomStart="@dimen/ten_dp"
                 app:boxCornerRadiusTopEnd="@dimen/ten_dp"
@@ -192,6 +193,7 @@
                     android:id="@+id/mother_name_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/demo_mother_name"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp" />
@@ -203,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/twenty_dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Date of Birth"
+                android:text="@string/date_of_birth"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -211,7 +213,7 @@
                 style="?attr/textInputOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="03 July 2001"
+                app:endIconMode="clear_text"
                 app:boxCornerRadiusBottomEnd="@dimen/ten_dp"
                 app:boxCornerRadiusBottomStart="@dimen/ten_dp"
                 app:boxCornerRadiusTopEnd="@dimen/ten_dp"
@@ -223,6 +225,7 @@
                     android:id="@+id/birth_date_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/demo_date"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp" />
@@ -234,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/twenty_dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Permanent Address"
+                android:text="@string/permanent_address"
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -248,7 +251,8 @@
                 app:boxCornerRadiusTopEnd="@dimen/ten_dp"
                 app:boxCornerRadiusTopStart="@dimen/ten_dp"
                 app:boxStrokeColor="@color/app_main_color"
-                app:hintTextColor="@color/app_main_color">
+                app:hintTextColor="@color/app_main_color"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/p_address_text"
@@ -258,7 +262,7 @@
                     android:cursorVisible="true"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textMultiLine"
-                    android:text="Dhaka, Dhanmondi 15, Road 8/A Hazi Afsar Uddin Road jhd"
+                    android:text="@string/demo_address"
                     android:textIsSelectable="true"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
