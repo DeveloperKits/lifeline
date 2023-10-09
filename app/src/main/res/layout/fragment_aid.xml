@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Fragment.AidFragment">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="3dp"
+            app:rippleColor="@color/app_low_color"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/back" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/thirty_dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/thirty_dp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/aid"
+            android:textSize="22sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:alpha="0.9"
+            app:layout_constraintBottom_toBottomOf="@+id/backButton"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toTopOf="@+id/backButton" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Emergency situation"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:alpha="0.9"
+            android:layout_marginTop="@dimen/forty_dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/backButton" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/heartAttachCard"
+            android:layout_width="0dp"
+            android:layout_height="85dp"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="1dp"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/app_low_color"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/textView10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:src="@drawable/heart" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Heart Attack"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/black"
+                    android:alpha="0.9" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:rotation="180"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/BreathlessnessCard"
+            android:layout_width="0dp"
+            android:layout_height="85dp"
+            android:backgroundTint="@color/app_low_color"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="1dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/heartAttachCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:src="@drawable/breathless" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:alpha="0.9"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Breathlessness"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="180"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/StrokeCard"
+            android:layout_width="0dp"
+            android:layout_height="85dp"
+            android:backgroundTint="@color/app_low_color"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="1dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/BreathlessnessCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:src="@drawable/stroke" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:alpha="0.9"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Stroke"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="180"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/UnconsciousnessCard"
+            android:layout_width="0dp"
+            android:layout_height="85dp"
+            android:backgroundTint="@color/app_low_color"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="1dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/StrokeCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:src="@drawable/unconsciousness" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:alpha="0.9"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Unconsciousness"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="180"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

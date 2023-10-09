@@ -34,4 +34,21 @@
     <string name="applicants_name">Applicants Name</string>
     <string name="demo_nid">12345678910257894</string>
     <string name="nid_number">NID Number</string>
+    <string name="current">Current</string>
+    <string name="are_you_in_trouble">Are you in trouble?</string>
+    <string name="press_the_button_for_emergency_service">Press the button for emergency service</string>
+    <string name="emergency_number">999</string>
+    <string name="need_another_help">Need another help?</string>
+    <string name="need_medical_help">Need Medical Help</string>
+    <string name="need_fire_service">Need Fire Service</string>
+    <string name="profile">Profile</string>
+    <string name="aid">Aid</string>
+    <string name="contacts">Contacts</string>
+
+
+    <string name="emergency_numbers_from_contacts">Set your 5 emergency numbers from contacts</string>
+    <string name="emergency_send">Your emergency is send Successfully</string>
+    <string name="medical_emergency_send">Your medical emergency is send to your nearest hospital</string>
+    <string name="fire_emergency_send">Your fire emergency is send to your nearest fire service</string>
+    <string name="long_text_location_dialog">Your location will be used to send your current location to the emergencies.</string>
 </resources>

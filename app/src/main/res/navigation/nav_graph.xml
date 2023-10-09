@@ -3,28 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.developerkits.lifeline.Fragment.RegistrationFragment"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" />
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_OTP_verificationFragment"
+            app:destination="@id/OTP_verificationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.developerkits.lifeline.Fragment.SplashScreenFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" />
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/OTP_verificationFragment"
         android:name="com.developerkits.lifeline.Fragment.OTP_verificationFragment"
         android:label="fragment_otp_verification"
-        tools:layout="@layout/fragment_otp_verification" />
+        tools:layout="@layout/fragment_otp_verification" >
+        <action
+            android:id="@+id/action_OTP_verificationFragment_to_NIDScanFragment"
+            app:destination="@id/NIDScanFragment" />
+    </fragment>
     <fragment
         android:id="@+id/NIDScanFragment"
         android:name="com.developerkits.lifeline.Fragment.NIDScanFragment"
         android:label="fragment_nid_scan"
-        tools:layout="@layout/fragment_nid_scan" />
+        tools:layout="@layout/fragment_nid_scan" >
+        <action
+            android:id="@+id/action_NIDScanFragment_to_cameraNidScanFragment"
+            app:destination="@id/cameraNidScanFragment" />
+    </fragment>
     <fragment
         android:id="@+id/NIDInfoFragment"
         android:name="com.developerkits.lifeline.Fragment.NIDInfoFragment"
@@ -35,4 +54,28 @@
         android:name="com.developerkits.lifeline.Fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/aidFragment"
+        android:name="com.developerkits.lifeline.Fragment.AidFragment"
+        android:label="fragment_aid"
+        tools:layout="@layout/fragment_aid" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.developerkits.lifeline.Fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.developerkits.lifeline.Fragment.ContactsFragment"
+        android:label="fragment_contacts"
+        tools:layout="@layout/fragment_contacts" />
+    <fragment
+        android:id="@+id/cameraNidScanFragment"
+        android:name="com.developerkits.lifeline.Fragment.CameraNidScanFragment"
+        android:label="fragment_camera_nid_scan"
+        tools:layout="@layout/fragment_camera_nid_scan" >
+        <action
+            android:id="@+id/action_cameraNidScanFragment_to_NIDInfoFragment"
+            app:destination="@id/NIDInfoFragment" />
+    </fragment>
 </navigation>
