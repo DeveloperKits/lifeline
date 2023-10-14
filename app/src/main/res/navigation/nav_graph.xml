@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreenFragment">
+    app:startDestination="@id/cameraNidScanFragment">
 
     <fragment
         android:id="@+id/registrationFragment"
@@ -11,8 +11,9 @@
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
-            android:id="@+id/action_registrationFragment_to_OTP_verificationFragment"
+            android:id="@+id/registration_to_OTP_verification"
             app:destination="@id/OTP_verificationFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -20,10 +21,10 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_registrationFragment"
+            android:id="@+id/splashScreen_to_registration"
             app:destination="@id/registrationFragment" />
         <action
-            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            android:id="@+id/splashScreen_to_home"
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
@@ -32,8 +33,11 @@
         android:label="fragment_otp_verification"
         tools:layout="@layout/fragment_otp_verification" >
         <action
-            android:id="@+id/action_OTP_verificationFragment_to_NIDScanFragment"
+            android:id="@+id/OTP_verification_to_NIDScan"
             app:destination="@id/NIDScanFragment" />
+        <action
+            android:id="@+id/OTP_verification_to_registration"
+            app:destination="@id/registrationFragment" />
     </fragment>
     <fragment
         android:id="@+id/NIDScanFragment"
@@ -41,14 +45,24 @@
         android:label="fragment_nid_scan"
         tools:layout="@layout/fragment_nid_scan" >
         <action
-            android:id="@+id/action_NIDScanFragment_to_cameraNidScanFragment"
+            android:id="@+id/NIDScan_to_cameraNidScan"
             app:destination="@id/cameraNidScanFragment" />
+        <action
+            android:id="@+id/NIDScan_to_registration"
+            app:destination="@id/registrationFragment" />
     </fragment>
     <fragment
         android:id="@+id/NIDInfoFragment"
         android:name="com.developerkits.lifeline.Fragment.NIDInfoFragment"
         android:label="fragment_nid_info"
-        tools:layout="@layout/fragment_nid_info" />
+        tools:layout="@layout/fragment_nid_info" >
+        <action
+            android:id="@+id/action_NIDInfoFragment_to_cameraNidScanFragment"
+            app:destination="@id/cameraNidScanFragment" />
+        <action
+            android:id="@+id/action_NIDInfoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.developerkits.lifeline.Fragment.HomeFragment"
@@ -75,7 +89,10 @@
         android:label="fragment_camera_nid_scan"
         tools:layout="@layout/fragment_camera_nid_scan" >
         <action
-            android:id="@+id/action_cameraNidScanFragment_to_NIDInfoFragment"
+            android:id="@+id/cameraNidScan_to_NIDInfo"
             app:destination="@id/NIDInfoFragment" />
+        <action
+            android:id="@+id/cameraNidScan_to_NIDScan"
+            app:destination="@id/NIDScanFragment" />
     </fragment>
 </navigation>

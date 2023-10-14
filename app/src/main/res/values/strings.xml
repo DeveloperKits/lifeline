@@ -11,6 +11,7 @@
     <string name="number">Number</string>
     <string name="demo_email">shadman4work@gmail.com</string>
     <string name="demo_number">+8801100000000</string>
+    <string name="demo_number_withoutPrefix">01100000000</string>
 
     <string name="otp_veri_number_text">An authentication code has been sent to</string>
     <string name="code_resend">Code Sent. Resend Code in</string>

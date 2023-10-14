@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Fragment.RegistrationFragment">
@@ -76,7 +77,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:text="@string/demo_email"
                 android:textIsSelectable="true"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="16sp" />
@@ -93,6 +93,7 @@
             app:boxCornerRadiusTopEnd="@dimen/ten_dp"
             app:boxCornerRadiusTopStart="@dimen/ten_dp"
             app:endIconMode="clear_text"
+            app:prefixText="+88 "
             app:boxStrokeColor="@color/app_main_color"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline2"
@@ -103,7 +104,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/demo_number"
                 android:textIsSelectable="true"
                 android:inputType="number"
                 android:textSize="16sp" />
