@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        //binding.bottomNavigation.setupWithNavController(navController)
+        binding.bottomNavigation.setupWithNavController(navController)
 
         // If you have some destinations where you don't want to show the BottomNavigationView:
         navController.addOnDestinationChangedListener { _, destination, _ ->
