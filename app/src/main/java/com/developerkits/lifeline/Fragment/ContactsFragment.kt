@@ -12,9 +12,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.developerkits.lifeline.Adapter.ContactsAdapter
 import com.developerkits.lifeline.Model.Contact
+import com.developerkits.lifeline.R
 import com.developerkits.lifeline.databinding.FragmentContactsBinding
 
 class ContactsFragment : Fragment() {
@@ -29,6 +31,9 @@ class ContactsFragment : Fragment() {
 
         // check user are give permission to read their phone contact
         requestContactPermission()
+
+        // back button click and shift home fragment
+        binding.backButton.setOnClickListener{ findNavController().navigate(R.id.contacts_to_home) }
 
         return binding.root
     }

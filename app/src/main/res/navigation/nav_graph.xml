@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/contactsFragment">
+    app:startDestination="@id/registrationFragment">
 
     <fragment
         android:id="@+id/registrationFragment"
@@ -72,17 +72,29 @@
         android:id="@+id/aidFragment"
         android:name="com.developerkits.lifeline.Fragment.AidFragment"
         android:label="fragment_aid"
-        tools:layout="@layout/fragment_aid" />
+        tools:layout="@layout/fragment_aid" >
+        <action
+            android:id="@+id/aidFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.developerkits.lifeline.Fragment.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/contactsFragment"
         android:name="com.developerkits.lifeline.Fragment.ContactsFragment"
         android:label="fragment_contacts"
-        tools:layout="@layout/fragment_contacts" />
+        tools:layout="@layout/fragment_contacts" >
+        <action
+            android:id="@+id/contacts_to_home"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cameraNidScanFragment"
         android:name="com.developerkits.lifeline.Fragment.CameraNidScanFragment"

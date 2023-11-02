@@ -1,17 +1,27 @@
 package com.developerkits.lifeline.Fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.developerkits.lifeline.R
 import com.developerkits.lifeline.databinding.FragmentOtpVerificationBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 
 class OTP_verificationFragment : Fragment() {
 
     private lateinit var binding: FragmentOtpVerificationBinding
+    private lateinit var auth: FirebaseAuth
+    private var storedVerificationId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,12 +35,106 @@ class OTP_verificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupOtpFields()
+
+        auth = FirebaseAuth.getInstance()
+
         binding.backButton.setOnClickListener{
             findNavController().navigate(R.id.OTP_verification_to_registration)
         }
 
         binding.verifyButton.setOnClickListener{
-            findNavController().navigate(R.id.OTP_verification_to_NIDScan)
+            val code1 = binding.code1Text.text.toString()
+            val code2 = binding.code2Text.text.toString()
+            val code3 = binding.code3Text.text.toString()
+            val code4 = binding.code4Text.text.toString()
+            val code5 = binding.code5Text.text.toString()
+            val code6 = binding.code6Text.text.toString()
+            val otp = code1+code2+code3+code4+code5+code6
+
+            if (storedVerificationId != null && otp.isNotEmpty()) {
+                val credential = PhoneAuthProvider.getCredential(storedVerificationId!!, otp)
+                signInWithPhoneAuthCredential(credential)
+            }
         }
+    }
+
+    private fun setupOtpFields() {
+        val editTexts = listOf(
+            binding.code1Text,
+            binding.code2Text,
+            binding.code3Text,
+            binding.code4Text,
+            binding.code5Text,
+            binding.code6Text
+        )
+        var lastKeyCode  = 0
+        var lastKeyTime : Long = 0
+
+        editTexts.forEachIndexed { index, editText ->
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (s != null && s.length == 1) {
+                        if (index < editTexts.size - 1) {
+                            editTexts[index + 1].requestFocus()
+                        }
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (s != null && s.length > 1) {
+                        val latestChar = s.toString().last()
+                        s.clear()
+                        s.append(latestChar)
+                    }
+                }
+            })
+
+            editText.setOnKeyListener { _, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL) {
+                    val currentTime = System.currentTimeMillis()
+                    if (keyCode == lastKeyCode && (currentTime - lastKeyTime) < 500) {
+                        // Double tap detected
+                        if (index > 0) {
+                            editTexts[index - 1].apply {
+                                text?.clear()
+                                requestFocus()
+                            }
+                        }
+                    } else {
+                        if (editText.text!!.isEmpty() && index > 0) {
+                            editTexts[index - 1].requestFocus()
+                        }
+                    }
+                    lastKeyCode = keyCode
+                    lastKeyTime = currentTime
+                    true
+                } else {
+                    false
+                }
+            }
+        }
+    }
+
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success
+                    Toast.makeText(context, "Verification Successful", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.OTP_verification_to_NIDScan)
+
+                } else {
+                    // Sign in failed
+                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                        // The verification code entered was invalid
+                        Toast.makeText(context, "Your verification are invalid", Toast.LENGTH_LONG).show()
+                    }else{
+                        Toast.makeText(context, "Verification Failed", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
     }
 }

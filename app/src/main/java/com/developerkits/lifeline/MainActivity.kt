@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
@@ -28,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.aidFragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.contactsFragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.profileFragment -> binding.bottomNavigation.visibility = View.VISIBLE
                 else -> binding.bottomNavigation.visibility = View.GONE
             }
         }
