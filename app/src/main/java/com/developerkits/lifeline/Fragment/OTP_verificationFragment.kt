@@ -1,27 +1,38 @@
 package com.developerkits.lifeline.Fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.Gravity
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.developerkits.lifeline.Model.Helper
 import com.developerkits.lifeline.R
 import com.developerkits.lifeline.databinding.FragmentOtpVerificationBinding
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import java.util.concurrent.TimeUnit
 
 class OTP_verificationFragment : Fragment() {
 
     private lateinit var binding: FragmentOtpVerificationBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private var storedVerificationId: String? = null
+    private lateinit var progressDialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +46,13 @@ class OTP_verificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpCall()
         setupOtpFields()
 
         auth = FirebaseAuth.getInstance()
+
+        val number = arguments?.getString("number")
+        startPhoneNumberVerification(number!!)
 
         binding.backButton.setOnClickListener{
             findNavController().navigate(R.id.OTP_verification_to_registration)
@@ -54,6 +69,8 @@ class OTP_verificationFragment : Fragment() {
 
             if (storedVerificationId != null && otp.isNotEmpty()) {
                 val credential = PhoneAuthProvider.getCredential(storedVerificationId!!, otp)
+
+                initProgressDialog()
                 signInWithPhoneAuthCredential(credential)
             }
         }
@@ -118,23 +135,83 @@ class OTP_verificationFragment : Fragment() {
         }
     }
 
+    private fun setUpCall() {
+        auth = FirebaseAuth.getInstance()
+
+        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                // This can be ignored if you are using the manual code entry flow.
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                // Handle the error
+                Toast
+                    .makeText(requireContext(),
+                        "Verification failed: ${e.message}",
+                        Toast.LENGTH_LONG)
+                    .show()
+
+                Log.d("Fail verification: ", e.message.toString() + e.toString())
+            }
+
+            override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
+                // Save verification ID
+                storedVerificationId = verificationId
+            }
+        }
+    }
+
+    private fun startPhoneNumberVerification(phoneNumber: String) {
+        // User does not exist, proceed to send OTP
+        val options = PhoneAuthOptions.newBuilder(auth)
+            .setPhoneNumber("+88$phoneNumber")
+            .setTimeout(60L, TimeUnit.SECONDS)
+            .setActivity(requireActivity())
+            .setCallbacks(callbacks)
+            .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
+    }
+
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success
-                    Toast.makeText(context, "Verification Successful", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Verification Successful", Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.OTP_verification_to_NIDScan)
 
                 } else {
                     // Sign in failed
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
-                        Toast.makeText(context, "Your verification are invalid", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Your verification are invalid", Toast.LENGTH_LONG).show()
                     }else{
-                        Toast.makeText(context, "Verification Failed", Toast.LENGTH_LONG).show()
+
+                        Toast.makeText(requireContext(), "Verification Failed", Toast.LENGTH_LONG).show()
                     }
+
+                    Log.d("Fail to create account: ", task.exception.toString())
                 }
             }
+    }
+
+    private fun initProgressDialog() {
+        // Create a ProgressBar programmatically
+        val progressBar = ProgressBar(context).apply {
+            isIndeterminate = true
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = Gravity.CENTER
+            }
+        }
+
+        // Create an AlertDialog for the progress dialog
+        progressDialog = AlertDialog.Builder(requireContext()).apply {
+            setTitle("Logging in...")
+            setView(progressBar)
+            setCancelable(false) // equivalent to setCanceledOnTouchOutside(false)
+        }.create()
     }
 }
