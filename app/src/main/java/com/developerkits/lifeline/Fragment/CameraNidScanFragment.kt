@@ -164,9 +164,9 @@ class CameraNidScanFragment : Fragment() {
                         .show()
                 } else {
                     getInfoFromNID(recognizedText)
+                    Log.i("Text Result", "Text : ${text.text}")
                 }
 
-                Log.i("Text Result", "Text : ${text.text}")
             }
             .addOnFailureListener { e ->
                 // Handle the error
@@ -183,15 +183,21 @@ class CameraNidScanFragment : Fragment() {
         val dobPattern = Regex("Date of Birth:\\s*(\\d{2} \\w{3} \\d{4})")
         val idNoPattern = Regex("ID NO:\\s*(\\d+)")
 
+        /*val namePattern = Regex("\"Name\\\\s*\\\\n(.+)\"")
+        val dobPattern = Regex("Date of Birth\\s*:?\\s*([0-9]+ [a-zA-Z]+ [0-9]+)")
+        val idNoPattern = Regex("NID No\\s*:?\\s*([0-9\\s]+)")*/
+
+
         // Try to find matches for the first type of card
         namePattern.find(text)?.let { infoMap["Name"] = it.groupValues[1].trim() }
         dobPattern.find(text)?.let { infoMap["Date of Birth"] = it.groupValues[1].trim() }
         idNoPattern.find(text)?.let { infoMap["ID No"] = it.groupValues[1].trim() }
 
+
         // If not found, try to find matches for the second type of card
         if (infoMap.isEmpty()) {
-            //val altNamePattern = Regex("(?m)^([A-Z ]+)$") // Matches a line with all caps (name in 2nd type of card)
-            val altNamePattern = Regex("Name\\s*\\n(.+)")
+            val altNamePattern = Regex("(?m)^([A-Z ]+)$") // Matches a line with all caps (name in 2nd type of card)
+            //val altNamePattern = Regex("Name\\s*\\n(.+)")
             val altDobPattern = Regex("Date of Birth\\s*(\\d{2} \\w{3} \\d{4})")
 
             altNamePattern.find(text)?.let { infoMap["Name"] = it.groupValues[1].trim() }
