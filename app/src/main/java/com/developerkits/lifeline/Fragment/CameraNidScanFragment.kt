@@ -2,12 +2,16 @@ package com.developerkits.lifeline.Fragment
 
 import android.Manifest
 import android.R.attr
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,12 +28,16 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.developerkits.lifeline.R
 import com.developerkits.lifeline.databinding.FragmentCameraNidScanBinding
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import java.io.ByteArrayOutputStream
 
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -40,8 +48,9 @@ class CameraNidScanFragment : Fragment() {
     private lateinit var binding: FragmentCameraNidScanBinding
     private lateinit var cameraExecutor: ExecutorService
     private var imageCapture: ImageCapture? = null
-    private val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
-    private lateinit var savedUri: Uri
+    private var isAllAreConverted = false
+    private val infoMap = mutableMapOf<String, String>()
+    private lateinit var bitmap: Bitmap
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +77,25 @@ class CameraNidScanFragment : Fragment() {
             if (binding.submit.text == "Capture") {
                 captureImage()
             } else if (binding.submit.text == "Submit") {
-                // Todo: pass bitmap in another fragment
+
+                if (isAllAreConverted) {
+                    // add all value in share preference and go NidScan Fragment
+                    val sharedPreferences =
+                        requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+
+                    // Convert infoMap to JSON string
+                    val infoMapJson = Gson().toJson(infoMap)
+                    // Save JSON string to SharedPreferences
+                    editor.putString("infoMap", infoMapJson)
+
+                    // Convert Bitmap to Base64 and save it to SharedPreferences
+                    val base64String = bitmapToBase64(bitmap)
+                    editor.putString("bitmap_key", base64String)
+
+                    editor.apply()
+                }
+
             }
         }
 
@@ -125,12 +152,19 @@ class CameraNidScanFragment : Fragment() {
                     val bytes = ByteArray(buffer.remaining())
                     buffer.get(bytes)
                     //Todo : There image crop doesn't work and also some problem have in view
-                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                    bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                     binding.previewImage.visibility = View.VISIBLE
-                    binding.previewImage.setImageBitmap(bitmap)
+                    //binding.previewImage.setImageBitmap(bitmap)
                     binding.previewImage.rotation = 90F
                     binding.submit.text = "Submit"
-                    
+
+                    Glide
+                        .with(requireContext())
+                        .load(bitmap)
+                        .centerCrop()
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(binding.previewImage)
+
                     // convert image to text and also if image are not clear then show a notification
                     convertToText(bitmap)
                     
@@ -138,14 +172,14 @@ class CameraNidScanFragment : Fragment() {
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    Log.e("TAG", "Photo capture failed: ${exception.message}", exception)
+                    addSnakeBar(exception.message.toString(), R.color.app_main_color)
                 }
             }
         )
     }
 
     private fun convertToText(bitmap: Bitmap?) {
-        // Assuming 'bitmap' is your Bitmap object
+
         val inputImage = InputImage.fromBitmap(bitmap!!, 0) // 0 for rotation degrees
 
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
@@ -156,39 +190,26 @@ class CameraNidScanFragment : Fragment() {
 
                 // Check for the presence of "National ID Card" in the text
                 if (!recognizedText.contains("National ID Card", ignoreCase = true)) {
-                    Snackbar.make(binding.mainLayout, "Invalid document. Please ensure you capture the correct NID card.", Snackbar.LENGTH_LONG)
-                        .setAction("Ok") {}
-                        .setTextColor(resources.getColor(R.color.white))
-                        .setBackgroundTint(resources.getColor(R.color.app_main_color))
-                        .setActionTextColor(resources.getColor(R.color.white))
-                        .show()
+                    addSnakeBar("Invalid document. Please ensure you capture the correct NID card.", R.color.app_main_color)
+
                 } else {
                     getInfoFromNID(recognizedText)
-                    Log.i("Text Result", "Text : ${text.text}")
                 }
 
             }
             .addOnFailureListener { e ->
-                // Handle the error
-                // ...
+                addSnakeBar(e.message.toString(), R.color.app_main_color)
             }
-
     }
 
     private fun getInfoFromNID(text: String) {
-        val infoMap = mutableMapOf<String, String>()
 
-        // Regex patterns to match the required fields
+        var boolean = false
+
         val namePattern = Regex("Name:\\s*(.*)")
         val dobPattern = Regex("Date of Birth:\\s*(\\d{2} \\w{3} \\d{4})")
         val idNoPattern = Regex("ID NO:\\s*(\\d+)")
 
-        /*val namePattern = Regex("\"Name\\\\s*\\\\n(.+)\"")
-        val dobPattern = Regex("Date of Birth\\s*:?\\s*([0-9]+ [a-zA-Z]+ [0-9]+)")
-        val idNoPattern = Regex("NID No\\s*:?\\s*([0-9\\s]+)")*/
-
-
-        // Try to find matches for the first type of card
         namePattern.find(text)?.let { infoMap["Name"] = it.groupValues[1].trim() }
         dobPattern.find(text)?.let { infoMap["Date of Birth"] = it.groupValues[1].trim() }
         idNoPattern.find(text)?.let { infoMap["ID No"] = it.groupValues[1].trim() }
@@ -196,28 +217,58 @@ class CameraNidScanFragment : Fragment() {
 
         // If not found, try to find matches for the second type of card
         if (infoMap.isEmpty()) {
-            val altNamePattern = Regex("(?m)^([A-Z ]+)$") // Matches a line with all caps (name in 2nd type of card)
-            //val altNamePattern = Regex("Name\\s*\\n(.+)")
-            val altDobPattern = Regex("Date of Birth\\s*(\\d{2} \\w{3} \\d{4})")
+
+            // Matches a line with all caps (name in 2nd type of card)
+            val altNamePattern = Regex("(?m)^([A-Z ]+)$")
+
+            // Define a regex pattern to match numbers in the specified format (3-3-4) = digit-word-digit
+            val altDobPattern = Regex("\\s*(\\d{2} \\w{3} \\d{4})")
+
+            // Define a regex pattern to match numbers in the specified format (3-3-4) all digit
+            val altIdPattern = Regex("\\b(\\d{3} \\d{3} \\d{4})\\b")
 
             altNamePattern.find(text)?.let { infoMap["Name"] = it.groupValues[1].trim() }
             altDobPattern.find(text)?.let { infoMap["Date of Birth"] = it.groupValues[1].trim() }
+            altIdPattern.find(text)?.let { infoMap["ID No"] = it.groupValues[1].replace(" ", "") }
 
-            // for number ... Regex to find a sequence of digits that may include spaces, with 10 or more digits in total
-            val nidNumberPattern = Regex("(?:\\d\\s*){10,}")
-            val matchResult = nidNumberPattern.find(text)
+            boolean = true
+        }
 
-            if (matchResult != null) {
-                // Remove all non-digit characters from the matched result to get the NID number
-                val nidNumber = matchResult.value.filter { it.isDigit() }
-                Log.i("NID Number", nidNumber)
-                infoMap["ID No"] = nidNumber
-            }
+        // check 2 or more infoMap value are null
+        if (infoMap["Name"]!!.isBlank() && infoMap["Date of Birth"]!!.isBlank() && infoMap["ID No"]!!.isBlank() ||
+            infoMap["Name"]!!.isBlank() && infoMap["Date of Birth"]!!.isBlank() ||
+            infoMap["Date of Birth"]!!.isBlank() && infoMap["ID No"]!!.isBlank() ||
+            infoMap["Name"]!!.isBlank() && infoMap["ID No"]!!.isBlank()){
+
+            addSnakeBar("Image is not clear please capture again and don't shake hands", R.color.app_main_color)
+        }else {
+            // all are done now
+            isAllAreConverted = true
         }
 
         Log.i("NID Info", "Name: ${infoMap["Name"]}, " +
-                "Date of Birth: ${infoMap["Date of Birth"]}, ID No: ${infoMap["ID No"]}")
+                "Date of Birth: ${infoMap["Date of Birth"]}, ID No: ${infoMap["ID No"]}, Enter: $boolean")
     }
+
+    private fun addSnakeBar(message: String, background: Int){
+        Snackbar
+            .make(binding.mainLayout, message, Snackbar.LENGTH_LONG)
+            .setAction("Ok") {}
+            .setTextColor(resources.getColor(R.color.white))
+            .setBackgroundTint(resources.getColor(background))
+            .setActionTextColor(resources.getColor(R.color.white))
+            .show()
+    }
+
+    // Convert Bitmap to Base64
+    fun bitmapToBase64(bitmap: Bitmap): String {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
