@@ -51,6 +51,7 @@ class CameraNidScanFragment : Fragment() {
     private var isAllAreConverted = false
     private val infoMap = mutableMapOf<String, String>()
     private lateinit var bitmap: Bitmap
+    private lateinit var type: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +73,9 @@ class CameraNidScanFragment : Fragment() {
         } else {
             activityResultLauncher.launch(REQUIRED_PERMISSIONS)
         }
+
+        // get type data from NidScanFragment
+        type = arguments?.getString("type").toString()
 
         binding.submit.setOnClickListener {
             if (binding.submit.text == "Capture") {
