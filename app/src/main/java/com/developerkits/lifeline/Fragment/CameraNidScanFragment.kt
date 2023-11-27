@@ -2,7 +2,9 @@ package com.developerkits.lifeline.Fragment
 
 import android.Manifest
 import android.R.attr
+import android.app.ProgressDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -28,6 +30,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.developerkits.lifeline.R
@@ -52,6 +55,8 @@ class CameraNidScanFragment : Fragment() {
     private val infoMap = mutableMapOf<String, String>()
     private lateinit var bitmap: Bitmap
     private lateinit var type: String
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,6 +79,13 @@ class CameraNidScanFragment : Fragment() {
             activityResultLauncher.launch(REQUIRED_PERMISSIONS)
         }
 
+        progressDialog = ProgressDialog(requireContext()).apply {
+
+        }
+
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
         // get type data from NidScanFragment
         type = arguments?.getString("type").toString()
 
@@ -84,9 +96,6 @@ class CameraNidScanFragment : Fragment() {
 
                 if (isAllAreConverted) {
                     // add all value in share preference and go NidScan Fragment
-                    val sharedPreferences =
-                        requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
 
                     // Convert infoMap to JSON string
                     val infoMapJson = Gson().toJson(infoMap)
@@ -95,9 +104,11 @@ class CameraNidScanFragment : Fragment() {
 
                     // Convert Bitmap to Base64 and save it to SharedPreferences
                     val base64String = bitmapToBase64(bitmap)
-                    editor.putString("bitmap_key", base64String)
+                    editor.putString("bitmap_key", bitmap.toString())
 
                     editor.apply()
+
+                    findNavController().navigate(R.id.cameraNidScan_to_NIDScan)
                 }
 
             }
@@ -158,7 +169,6 @@ class CameraNidScanFragment : Fragment() {
                     //Todo : There image crop doesn't work and also some problem have in view
                     bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                     binding.previewImage.visibility = View.VISIBLE
-                    //binding.previewImage.setImageBitmap(bitmap)
                     binding.previewImage.rotation = 90F
                     binding.submit.text = "Submit"
 
@@ -170,7 +180,11 @@ class CameraNidScanFragment : Fragment() {
                         .into(binding.previewImage)
 
                     // convert image to text and also if image are not clear then show a notification
-                    convertToText(bitmap)
+                    if (type == "Front") {
+                        convertToText(bitmap)
+                        val editor = sharedPreferences.edit()
+                        editor.putString(type, bitmap.toString())
+                    }
                     
                     image.close()
                 }
