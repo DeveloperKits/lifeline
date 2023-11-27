@@ -48,6 +48,7 @@ class OTP_verificationFragment : Fragment() {
 
         setUpCall()
         setupOtpFields()
+        initProgressDialog()
 
         auth = FirebaseAuth.getInstance()
 
@@ -70,7 +71,7 @@ class OTP_verificationFragment : Fragment() {
             if (storedVerificationId != null && otp.isNotEmpty()) {
                 val credential = PhoneAuthProvider.getCredential(storedVerificationId!!, otp)
 
-                initProgressDialog()
+                progressDialog.show()
                 signInWithPhoneAuthCredential(credential)
             }
         }
@@ -145,6 +146,7 @@ class OTP_verificationFragment : Fragment() {
 
             override fun onVerificationFailed(e: FirebaseException) {
                 // Handle the error
+                progressDialog.dismiss()
                 Toast
                     .makeText(requireContext(),
                         "Verification failed: ${e.message}",
@@ -177,11 +179,14 @@ class OTP_verificationFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success
+                    Log.d("UID", task.result.user!!.uid)
+                    progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Verification Successful", Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.OTP_verification_to_NIDScan)
 
                 } else {
                     // Sign in failed
+                    progressDialog.dismiss()
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
                         Toast.makeText(requireContext(), "Your verification are invalid", Toast.LENGTH_LONG).show()
