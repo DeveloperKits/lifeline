@@ -109,6 +109,9 @@ class CameraNidScanFragment : Fragment() {
                     editor.apply()
 
                     findNavController().navigate(R.id.cameraNidScan_to_NIDScan)
+
+                }else if(type == "Back"){
+                    findNavController().navigate(R.id.cameraNidScan_to_NIDScan)
                 }
 
             }
@@ -179,13 +182,15 @@ class CameraNidScanFragment : Fragment() {
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(binding.previewImage)
 
+                    val editor = sharedPreferences.edit()
                     // convert image to text and also if image are not clear then show a notification
                     if (type == "Front") {
                         convertToText(bitmap)
-                        val editor = sharedPreferences.edit()
+                        editor.putString(type, bitmap.toString())
+                    }else {
                         editor.putString(type, bitmap.toString())
                     }
-                    
+                    editor.apply()
                     image.close()
                 }
 
@@ -208,7 +213,9 @@ class CameraNidScanFragment : Fragment() {
 
                 // Check for the presence of "National ID Card" in the text
                 if (!recognizedText.contains("National ID Card", ignoreCase = true)) {
-                    addSnakeBar("Invalid document. Please ensure you capture the correct NID card.", R.color.app_main_color)
+                    addSnakeBar(
+                        "Invalid document. Please ensure you capture the correct NID card.",
+                        R.color.app_main_color)
 
                 } else {
                     getInfoFromNID(recognizedText)
@@ -326,6 +333,5 @@ class CameraNidScanFragment : Fragment() {
             startCamera(binding.centeredViewFinder)
         }
     }
-
 
 }

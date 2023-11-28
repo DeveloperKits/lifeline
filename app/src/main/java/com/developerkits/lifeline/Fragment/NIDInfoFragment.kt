@@ -42,6 +42,7 @@ class NIDInfoFragment : Fragment() {
         val infoMapType = object : TypeToken<Map<String, String>>() {}.type
         val infoMap = Gson().fromJson<Map<String, String>>(infoMapJson, infoMapType)
 
+        binding.nidNumber.text = infoMap["ID No"]
 
         if (!infoMap.isNullOrEmpty()) {
             Log.d("Map Info:", infoMap.toString())

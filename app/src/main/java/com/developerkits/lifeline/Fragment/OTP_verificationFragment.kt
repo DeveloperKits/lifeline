@@ -1,6 +1,7 @@
 package com.developerkits.lifeline.Fragment
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -179,7 +180,10 @@ class OTP_verificationFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success
-                    Log.d("UID", task.result.user!!.uid)
+                    val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("UID", task.result.user!!.uid)
+                    editor.apply()
                     progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Verification Successful", Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.OTP_verification_to_NIDScan)
@@ -195,7 +199,7 @@ class OTP_verificationFragment : Fragment() {
                         Toast.makeText(requireContext(), "Verification Failed", Toast.LENGTH_LONG).show()
                     }
 
-                    Log.d("Fail to create account: ", task.exception.toString())
+                    //Log.d("Fail to create account: ", task.exception.toString())
                 }
             }
     }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/registrationFragment">
+    app:startDestination="@id/NIDScanFragment">
 
     <fragment
         android:id="@+id/registrationFragment"
@@ -50,6 +50,9 @@
         <action
             android:id="@+id/NIDScan_to_registration"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_NIDScanFragment_to_NIDInfoFragment"
+            app:destination="@id/NIDInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/NIDInfoFragment"
@@ -57,11 +60,11 @@
         android:label="fragment_nid_info"
         tools:layout="@layout/fragment_nid_info" >
         <action
-            android:id="@+id/action_NIDInfoFragment_to_cameraNidScanFragment"
-            app:destination="@id/cameraNidScanFragment" />
-        <action
             android:id="@+id/action_NIDInfoFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_NIDInfoFragment_to_NIDScanFragment"
+            app:destination="@id/NIDScanFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -100,9 +103,6 @@
         android:name="com.developerkits.lifeline.Fragment.CameraNidScanFragment"
         android:label="fragment_camera_nid_scan"
         tools:layout="@layout/fragment_camera_nid_scan" >
-        <action
-            android:id="@+id/cameraNidScan_to_NIDInfo"
-            app:destination="@id/NIDInfoFragment" />
         <action
             android:id="@+id/cameraNidScan_to_NIDScan"
             app:destination="@id/NIDScanFragment" />

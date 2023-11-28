@@ -46,14 +46,12 @@ class NIDScanFragment : Fragment() {
         val infoMapType = object : TypeToken<Map<String, String>>() {}.type
         val infoMap = Gson().fromJson<Map<String, String>>(infoMapJson, infoMapType)
 
-        if (!infoMap.isNullOrEmpty()){
-            Log.d("Map Info:", infoMap.toString())
-        }
 
         // Now, infoMap contains the data saved in the first fragment
         binding.nextPage.setOnClickListener {
             if (!front.isNullOrEmpty() && !back.isNullOrEmpty()){
-                findNavController().navigate(R.id.cameraNidScan_to_NIDInfo)
+                Log.d("Map Info:", infoMap.toString())
+                findNavController().navigate(R.id.action_NIDScanFragment_to_NIDInfoFragment)
             }
         }
 

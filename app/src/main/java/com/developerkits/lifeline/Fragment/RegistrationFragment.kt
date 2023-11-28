@@ -1,5 +1,7 @@
 package com.developerkits.lifeline.Fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +51,12 @@ class RegistrationFragment : Fragment() {
 
             }else {
                 // Navigate to OtpFragment
+                val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("number", number.toString())
+                editor.putString("email", email.toString())
+                editor.apply()
+
                 val bundle = Bundle()
                 bundle.putString("number", number.toString())
                 findNavController().navigate(R.id.registration_to_OTP_verification, bundle)
