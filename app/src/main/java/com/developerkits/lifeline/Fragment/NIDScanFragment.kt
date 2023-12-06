@@ -46,7 +46,6 @@ class NIDScanFragment : Fragment() {
         val infoMapType = object : TypeToken<Map<String, String>>() {}.type
         val infoMap = Gson().fromJson<Map<String, String>>(infoMapJson, infoMapType)
 
-
         // Now, infoMap contains the data saved in the first fragment
         binding.nextPage.setOnClickListener {
             if (!front.isNullOrEmpty() && !back.isNullOrEmpty()){
@@ -69,6 +68,7 @@ class NIDScanFragment : Fragment() {
             }
         }
 
+        //Todo: error -> when user get image from Camera NID scan then those image are not set in there
         if (back != null) {
             Glide
                 .with(requireContext())

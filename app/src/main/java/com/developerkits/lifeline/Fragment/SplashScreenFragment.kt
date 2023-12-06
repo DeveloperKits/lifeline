@@ -23,7 +23,7 @@ class SplashScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+// todo: check user
         lifecycleScope.launch {
             delay(2500)
             findNavController().navigate(R.id.splashScreen_to_registration)

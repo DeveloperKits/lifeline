@@ -1,12 +1,14 @@
 package com.developerkits.lifeline.Fragment
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.developerkits.lifeline.R
 import com.developerkits.lifeline.databinding.FragmentNidInfoBinding
@@ -19,6 +21,7 @@ import kotlinx.coroutines.launch
 class NIDInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentNidInfoBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,19 +36,21 @@ class NIDInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Read infoMap from SharedPreferences
-        var sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
         // Retrieve JSON string from SharedPreferences
         val infoMapJson = sharedPreferences.getString("infoMap", null)
+        val id = sharedPreferences.getString("UID", null)
 
         // Convert JSON string back to infoMap
         val infoMapType = object : TypeToken<Map<String, String>>() {}.type
         val infoMap = Gson().fromJson<Map<String, String>>(infoMapJson, infoMapType)
 
-        binding.nidNumber.text = infoMap["ID No"]
-
         if (!infoMap.isNullOrEmpty()) {
             Log.d("Map Info:", infoMap.toString())
+            binding.nidNumberText.setText(infoMap["ID No"])
+            binding.birthDateText.setText(infoMap["Date of Birth"])
+            binding.applicantsNameText.setText(infoMap["Name"])
         }
 
         binding.nextPage.setOnClickListener{
@@ -69,13 +74,13 @@ class NIDInfoFragment : Fragment() {
             }else if (address.isNullOrBlank()){
                 binding.pAddressText.error = "This field is required"
             }else{
-                saveData(nid, name, father, mother, bod, address)
+                saveData(nid, name, father, mother, bod, address, id!!)
             }
         }
     }
 
     private fun saveData(nid: String, name: String, father: String,
-                         mother: String, bod: String, address: String) {
+                         mother: String, bod: String, address: String, id: String) {
 
         val db = Firebase.firestore
         // Create a new user with a first and last name
@@ -88,20 +93,34 @@ class NIDInfoFragment : Fragment() {
             "address" to address,
         )
 
-        val TAG = "messageForStore"
-
-
         lifecycleScope.launch {
-            // Add a new document with a generated ID
-            db.collection("users")
-                .add(user)
-                .addOnSuccessListener { documentReference ->
-                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+            db.collection("users").document(id)
+                .set(user)
+                .addOnSuccessListener {
+                    clearPref()
+
+                    Toast.makeText(requireContext(),
+                        "Successfully save data!",
+                        Toast.LENGTH_SHORT).show()
                 }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error adding document", e)
+                .addOnFailureListener {
+                    clearPref()
+
+                    Toast.makeText(requireContext(),
+                        "${it.message}",
+                        Toast.LENGTH_SHORT).show()
                 }
         }
 
+    }
+
+    private fun clearPref() {
+        val editor = sharedPreferences.edit()
+        editor.remove("infoMap")
+        editor.remove("Front")
+        editor.remove("Back")
+        editor.remove("type")
+        editor.remove("bitmap_key")
+        editor.apply()
     }
 }
