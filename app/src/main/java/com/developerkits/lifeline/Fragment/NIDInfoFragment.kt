@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.developerkits.lifeline.R
 import com.developerkits.lifeline.databinding.FragmentNidInfoBinding
 import com.google.firebase.Firebase
@@ -97,24 +98,25 @@ class NIDInfoFragment : Fragment() {
             db.collection("users").document(id)
                 .set(user)
                 .addOnSuccessListener {
-                    clearPref()
+                    clearPref("Save")
 
                     Toast.makeText(requireContext(),
                         "Successfully save data!",
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_LONG).show()
+
+                    findNavController().navigate(R.id.action_NIDInfoFragment_to_homeFragment)
                 }
                 .addOnFailureListener {
-                    clearPref()
+                    clearPref(" ")
 
                     Toast.makeText(requireContext(),
                         "${it.message}",
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_LONG).show()
                 }
         }
-
     }
 
-    private fun clearPref() {
+    private fun clearPref(string: String) {
         val editor = sharedPreferences.edit()
         editor.remove("infoMap")
         editor.remove("Front")
@@ -122,5 +124,10 @@ class NIDInfoFragment : Fragment() {
         editor.remove("type")
         editor.remove("bitmap_key")
         editor.apply()
+
+        if (string == "Save") {
+            editor.putBoolean("isFullRegistrationComplete", true)
+            editor.apply()
+        }
     }
 }

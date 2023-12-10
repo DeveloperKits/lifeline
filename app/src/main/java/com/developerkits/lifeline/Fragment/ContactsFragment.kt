@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +13,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.developerkits.lifeline.Adapter.ContactsAdapter
+import com.developerkits.lifeline.Adapter.ContactsAddAdapter
 import com.developerkits.lifeline.Model.Contact
+import com.developerkits.lifeline.Model.ContactAdd
 import com.developerkits.lifeline.R
 import com.developerkits.lifeline.databinding.FragmentContactsBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.launch
 
 class ContactsFragment : Fragment() {
     private lateinit var binding: FragmentContactsBinding
+    private val contactList = ArrayList<ContactAdd>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +45,38 @@ class ContactsFragment : Fragment() {
         binding.backButton.setOnClickListener{ findNavController().navigate(R.id.contacts_to_home) }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val db = Firebase.firestore
+        val auth = Firebase.auth
+
+        val adapter = ContactsAddAdapter(this, contactList)
+
+        lifecycleScope.launch {
+            db.collection("users")
+                .document(auth.currentUser!!.uid).collection("contacts")
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+
+                        for (document in documents) {
+                            Log.d("doc", document.getString("number").toString())
+                            val contact = ContactAdd(
+                                document.getString("name").toString(),
+                                document.getString("number").toString()
+                            )
+                            contactList.add(contact)
+                        }
+                        binding.addedContact.layoutManager = LinearLayoutManager(requireContext())
+                        binding.addedContact.adapter = adapter
+                        //todo issue: after delete or remove recycleview data is not update. Also "notifyDataSetChanged()" not worked
+                        // need to add progressbar also
+                    }
+                }
+        }
     }
 
     private fun requestContactPermission() {
