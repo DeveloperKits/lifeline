@@ -42,7 +42,7 @@ class ContactsFragment : Fragment() {
         requestContactPermission()
 
         // back button click and shift home fragment
-        binding.backButton.setOnClickListener{ findNavController().navigate(R.id.contacts_to_home) }
+        //binding.backButton.setOnClickListener{ findNavController().navigate(R.id.contacts_to_home) }
 
         return binding.root
     }
@@ -50,6 +50,10 @@ class ContactsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fetchAddContacts()
+    }
+
+    private fun fetchAddContacts() {
         val db = Firebase.firestore
         val auth = Firebase.auth
 
@@ -103,7 +107,9 @@ class ContactsFragment : Fragment() {
             // Todo add a Textview or image
         }else {
             val sortedList = contacts.sortedBy { it.name }
-            val adapter = ContactsAdapter(this, sortedList)
+            val adapter = ContactsAdapter(this, sortedList){
+                fetchAddContacts()
+            }
             binding.phoneContacts.layoutManager = LinearLayoutManager(requireContext())
             binding.phoneContacts.adapter = adapter
         }

@@ -20,11 +20,12 @@ import com.google.firebase.firestore.firestore
 
 class ContactsAdapter(
     private val context: Fragment,
-    private val contacts: List<Contact>
+    private val contacts: List<Contact>,
+    private val onClick: () -> Unit
 ) :
     RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class ViewHolder(view: View, val onClick: () -> Unit) : RecyclerView.ViewHolder(view){
         val nameTextView: TextView = view.findViewById(R.id.name)
         val numberTextView: TextView = view.findViewById(R.id.number)
         val photoView: ImageView = view.findViewById(R.id.photoView)
@@ -34,7 +35,7 @@ class ContactsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_contacts, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, onClick)
     }
 
     override fun onBindViewHolder(holder: ContactsAdapter.ViewHolder, position: Int) {
@@ -81,6 +82,8 @@ class ContactsAdapter(
                                 "Contact added successfully",
                                 Toast.LENGTH_SHORT
                             ).show()
+
+                            onClick()
                         }
                         .addOnFailureListener {
 
