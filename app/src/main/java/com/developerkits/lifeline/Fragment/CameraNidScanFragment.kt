@@ -170,6 +170,7 @@ class CameraNidScanFragment : Fragment() {
                     val bytes = ByteArray(buffer.remaining())
                     buffer.get(bytes)
                     //Todo : There image crop doesn't work and also some problem have in view
+                    // add loading
                     bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                     binding.previewImage.visibility = View.VISIBLE
                     binding.previewImage.rotation = 90F

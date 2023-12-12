@@ -57,7 +57,12 @@ class ContactsFragment : Fragment() {
         val db = Firebase.firestore
         val auth = Firebase.auth
 
-        val adapter = ContactsAddAdapter(this, contactList)
+        contactList.clear()
+        val adapter = ContactsAddAdapter(this, contactList){
+            // if user remove any contact then update recycle
+            fetchAddContacts()
+            loadContacts()
+        }
 
         lifecycleScope.launch {
             db.collection("users")
@@ -65,7 +70,6 @@ class ContactsFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
-
                         for (document in documents) {
                             Log.d("doc", document.getString("number").toString())
                             val contact = ContactAdd(
@@ -74,10 +78,18 @@ class ContactsFragment : Fragment() {
                             )
                             contactList.add(contact)
                         }
+
+                        if(contactList.isEmpty()){
+                            binding.noData.visibility = View.VISIBLE
+                            binding.addedContact.visibility = View.GONE
+                        }else{
+                            binding.noData.visibility = View.GONE
+                            binding.addedContact.visibility = View.VISIBLE
+                        }
+
+                        binding.textView11.text = "Your Emergency Contacts (${contactList.size}/5)"
                         binding.addedContact.layoutManager = LinearLayoutManager(requireContext())
                         binding.addedContact.adapter = adapter
-                        //todo issue: after delete or remove recycleview data is not update. Also "notifyDataSetChanged()" not worked
-                        // need to add progressbar also
                     }
                 }
         }
@@ -108,6 +120,7 @@ class ContactsFragment : Fragment() {
         }else {
             val sortedList = contacts.sortedBy { it.name }
             val adapter = ContactsAdapter(this, sortedList){
+                // if user add any contact then re fetch data and show update data
                 fetchAddContacts()
             }
             binding.phoneContacts.layoutManager = LinearLayoutManager(requireContext())
@@ -159,6 +172,5 @@ class ContactsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
             }
         }
-
 
 }

@@ -81,6 +81,16 @@
                     android:textColor="@color/app_main_color"
                     android:textSize="16sp" />
 
+                <TextView
+                    android:id="@+id/noData"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/add_your_first_contact"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/added_contact"
                     android:layout_width="match_parent"
@@ -93,7 +103,7 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/twenty_dp"
                     android:alpha="0.8"
-                    app:cardBackgroundColor="@color/black"
+                    app:cardBackgroundColor="@color/black_text"
                     app:cardElevation="0dp" />
 
                 <TextView

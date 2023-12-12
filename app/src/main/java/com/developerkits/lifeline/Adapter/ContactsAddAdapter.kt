@@ -18,11 +18,12 @@ import com.google.firebase.firestore.firestore
 
 class ContactsAddAdapter(
     private val context: Fragment,
-    private val contacts: List<ContactAdd>
+    private val contacts: List<ContactAdd>,
+    private val onClick: () -> Unit
 ):
     RecyclerView.Adapter<ContactsAddAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class ViewHolder(view: View, val onClick: () -> Unit) : RecyclerView.ViewHolder(view){
         val nameTextView: TextView = view.findViewById(R.id.name)
         val numberTextView: TextView = view.findViewById(R.id.number)
         val photoView: ImageView = view.findViewById(R.id.photoView)
@@ -34,7 +35,7 @@ class ContactsAddAdapter(
     ): ContactsAddAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_contacts, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, onClick)
     }
 
     override fun onBindViewHolder(holder: ContactsAddAdapter.ViewHolder, position: Int) {
@@ -59,6 +60,7 @@ class ContactsAddAdapter(
                         "Delete successfully",
                         Toast.LENGTH_SHORT
                     ).show()
+                    onClick()
                 }
         }
     }

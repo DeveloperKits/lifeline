@@ -1,310 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragment.ProfileFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/thirty_dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Fragment.ProfileFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/thirty_dp" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/backButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/twenty_dp"
-        android:clickable="true"
-        app:cardCornerRadius="@dimen/ten_dp"
-        app:cardElevation="3dp"
-        app:rippleColor="@color/app_low_color"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView3"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/back" />
-    </com.google.android.material.card.MaterialCardView>
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/thirty_dp" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/profile"
-        android:textSize="22sp"
-        android:fontFamily="@font/poppins_semibold"
-        android:textColor="@color/black"
-        android:alpha="0.9"
-        app:layout_constraintBottom_toBottomOf="@+id/backButton"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toTopOf="@+id/backButton" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/thirty_dp" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="@dimen/forty_dp"
-        app:cardCornerRadius="150dp"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/backButton"
-        app:strokeColor="@color/app_main_color"
-        app:strokeWidth="3dp">
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/vector" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/demo_name"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/poppins_semibold"
-        android:layout_marginTop="@dimen/ten_dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
-
-    <TextView
-        android:id="@+id/userNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/demo_number"
-        android:fontFamily="@font/poppins_medium"
-        android:layout_marginTop="-3dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/accountInfoCard"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/thirty_dp"
-        android:backgroundTint="@color/app_low_color"
-        android:clickable="true"
-        app:cardCornerRadius="@dimen/ten_dp"
-        app:cardElevation="1dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/userNumber">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ten_dp"
-                android:layout_weight="1"
-                android:alpha="0.9"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Account Information"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="3dp"
+            app:rippleColor="@color/app_low_color"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/ten_dp"
-                android:rotation="180"
+                android:layout_gravity="center"
                 android:src="@drawable/back" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/emergencyHistoryCard"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/ten_dp"
-        android:backgroundTint="@color/app_low_color"
-        android:clickable="true"
-        app:cardCornerRadius="@dimen/ten_dp"
-        app:cardElevation="1dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/accountInfoCard">
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile"
+            android:textSize="22sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:alpha="0.9"
+            app:layout_constraintBottom_toBottomOf="@+id/backButton"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toTopOf="@+id/backButton" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ten_dp"
-                android:layout_weight="1"
-                android:alpha="0.9"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Emergency History"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/forty_dp"
+            app:cardCornerRadius="150dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/backButton"
+            app:strokeColor="@color/app_main_color"
+            app:strokeWidth="3dp">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/ten_dp"
-                android:rotation="180"
-                android:src="@drawable/back" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/vector" />
+        </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/notificationCard"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/app_low_color"
-        android:clickable="true"
-        app:cardCornerRadius="@dimen/ten_dp"
-        app:cardElevation="1dp"
-        android:layout_marginTop="@dimen/ten_dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/emergencyHistoryCard">
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/demo_name"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="@dimen/ten_dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/userNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/demo_number"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginTop="-3dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/userName" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ten_dp"
-                android:layout_weight="1"
-                android:alpha="0.9"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Notifications"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/accountInfoCard"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/thirty_dp"
+            android:backgroundTint="@color/app_low_color"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/userNumber">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/ten_dp"
-                android:rotation="180"
-                android:src="@drawable/back" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/helpInfoCard"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/app_low_color"
-        android:clickable="true"
-        app:cardCornerRadius="@dimen/ten_dp"
-        app:cardElevation="1dp"
-        android:layout_marginTop="@dimen/ten_dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/notificationCard">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/ten_dp"
+                    android:layout_weight="1"
+                    android:alpha="0.9"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Account Information"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:rotation="180"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ten_dp"
-                android:layout_weight="1"
-                android:alpha="0.9"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Help &amp; FAQ"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/emergencyHistoryCard"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:backgroundTint="@color/app_low_color"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/accountInfoCard">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/ten_dp"
-                android:rotation="180"
-                android:src="@drawable/back" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/aboutInfoCard"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/app_low_color"
-        android:clickable="true"
-        app:cardCornerRadius="@dimen/ten_dp"
-        app:cardElevation="1dp"
-        android:layout_marginTop="@dimen/ten_dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/helpInfoCard">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/ten_dp"
+                    android:layout_weight="1"
+                    android:alpha="0.9"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Emergency History"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:rotation="180"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ten_dp"
-                android:layout_weight="1"
-                android:alpha="0.9"
-                android:fontFamily="@font/poppins_medium"
-                android:text="About Us"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/notificationCard"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/app_low_color"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="1dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/emergencyHistoryCard">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/ten_dp"
-                android:rotation="180"
-                android:src="@drawable/back" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:text="Logout"
-        android:textAllCaps="false"
-        app:cornerRadius="@dimen/ten_dp"
-        android:layout_marginBottom="@dimen/twenty_dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline1" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/ten_dp"
+                    android:layout_weight="1"
+                    android:alpha="0.9"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Notifications"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:rotation="180"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/helpInfoCard"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/app_low_color"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="1dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/notificationCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/ten_dp"
+                    android:layout_weight="1"
+                    android:alpha="0.9"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Help &amp; FAQ"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:rotation="180"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/aboutInfoCard"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/app_low_color"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/ten_dp"
+            app:cardElevation="1dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/helpInfoCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/ten_dp"
+                    android:layout_weight="1"
+                    android:alpha="0.9"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="About Us"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/ten_dp"
+                    android:rotation="180"
+                    android:src="@drawable/back" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:text="Logout"
+            android:textAllCaps="false"
+            app:cornerRadius="@dimen/ten_dp"
+            android:layout_marginBottom="@dimen/twenty_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

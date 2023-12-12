@@ -53,7 +53,7 @@
             android:layout_marginTop="6dp"
             android:alpha="0.7"
             android:fontFamily="@font/poppins"
-            android:text="@string/demo_address"
+            android:text="@string/loading"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/notification"

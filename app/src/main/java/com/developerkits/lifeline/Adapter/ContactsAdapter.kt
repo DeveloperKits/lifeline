@@ -2,6 +2,7 @@ package com.developerkits.lifeline.Adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developerkits.lifeline.Model.Contact
+import com.developerkits.lifeline.Model.ContactAdd
 import com.developerkits.lifeline.R
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -50,6 +53,18 @@ class ContactsAdapter(
                 .centerInside()
                 .into(holder.photoView)
         }*/
+
+        // check emergency contacts are already 5 then button are disable
+        val db = Firebase.firestore
+        val auth = Firebase.auth
+        db.collection("users")
+            .document(auth.currentUser!!.uid).collection("contacts")
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.size()>=5) {
+                    holder.button.isEnabled = false
+                }
+            }
 
         holder.button.setOnClickListener {
             updateData(contact)

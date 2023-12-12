@@ -54,6 +54,8 @@
     <string name="fire_emergency_send">Your fire emergency is send to your nearest fire service</string>
     <string name="long_text_location_dialog">Your location will be used to send your current location to the emergencies.</string>
     <string name="add">Add</string>
-    <string name="your_emergency_contacts">Your Emergency Contacts (5/5)</string>
+    <string name="your_emergency_contacts">Your Emergency Contacts (0/5)</string>
     <string name="your_phone_contacts">Your phone Contacts</string>
+    <string name="add_your_first_contact">Add your first contact</string>
+    <string name="loading">loading...</string>
 </resources>
