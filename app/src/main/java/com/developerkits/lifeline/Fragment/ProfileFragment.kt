@@ -44,12 +44,27 @@ class ProfileFragment : Fragment() {
         binding.button.setOnClickListener{
             showLogoutConfirmationDialog()
         }
+
+        val bundle = Bundle()
+
+        binding.helpInfoCard.setOnClickListener{
+            bundle.putString("doc", "helpFAQ")
+            bundle.putString("tittle", "Help & FAQ")
+            findNavController().navigate(R.id.action_profileFragment_to_detailsFragment, bundle)
+        }
+
+        binding.aboutInfoCard.setOnClickListener{
+            bundle.putString("doc", "about")
+            bundle.putString("tittle", "About Us")
+            findNavController().navigate(R.id.action_profileFragment_to_detailsFragment, bundle)
+        }
+
     }
 
     private fun showLogoutConfirmationDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.app_name))
-            .setMessage("Are you ant to log out?")
+            .setMessage("Are you want to log out?")
 
             .setNegativeButton("Yes") { dialog, which ->
                 val sharedPreferences = requireContext()

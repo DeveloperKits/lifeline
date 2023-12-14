@@ -79,6 +79,9 @@
         <action
             android:id="@+id/aidFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_aidFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -91,6 +94,9 @@
         <action
             android:id="@+id/action_profileFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/contactsFragment"
@@ -109,5 +115,16 @@
         <action
             android:id="@+id/cameraNidScan_to_NIDScan"
             app:destination="@id/NIDScanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.developerkits.lifeline.Fragment.DetailsFragment"
+        android:label="DetailsFragment" >
+        <action
+            android:id="@+id/action_detailsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_aidFragment"
+            app:destination="@id/aidFragment" />
     </fragment>
 </navigation>
