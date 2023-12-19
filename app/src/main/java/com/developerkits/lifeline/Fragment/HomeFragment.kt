@@ -3,6 +3,7 @@ package com.developerkits.lifeline.Fragment
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,18 +11,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.developerkits.lifeline.Model.ContactAdd
 import com.developerkits.lifeline.R
 import com.developerkits.lifeline.databinding.FragmentHomeBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private val contactList = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,9 +59,24 @@ class HomeFragment : Fragment() {
             showConfirmationDialog("fire")
         }
 
-        binding.imageView2.setOnClickListener{
-            showConfirmationDialog("send")
+        binding.sendMessage.setOnClickListener{
+            lifecycleScope.launch {
+                db.collection("users")
+                    .document(auth.currentUser!!.uid).collection("contacts")
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        if (!documents.isEmpty) {
+                            for (document in documents) {
+                                contactList.add(document.getString("number").toString())
+                                showConfirmationDialog("send")
+                            }
+                        }else{
+                            //todo: empty contact dialog
+                        }
+                    }
+            }
         }
+
     }
 
     private fun showCustomDialog(string: String) {
