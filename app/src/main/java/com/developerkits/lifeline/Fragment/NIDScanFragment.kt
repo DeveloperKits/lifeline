@@ -68,20 +68,17 @@ class NIDScanFragment : Fragment() {
             }
         }
 
-        //Todo: error -> when user get image from Camera NID scan then those image are not set in there
         if (back != null) {
             Glide
                 .with(requireContext())
-                .load(back)
-                .centerCrop()
+                .load(R.drawable.camera_done)
                 .into(binding.backPage)
         }
 
         if (front != null){
             Glide
                 .with(requireContext())
-                .load(front)
-                .centerCrop()
+                .load(R.drawable.camera_done)
                 .into(binding.frontPage)
         }
 

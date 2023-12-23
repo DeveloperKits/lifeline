@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.util.Log
@@ -61,6 +62,13 @@ class HomeFragment : Fragment() {
         checkAndRequestPermissions()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
+        // set up video
+        Glide.with(requireContext())
+            .asGif()
+            .load(R.drawable.animation_gif)
+            .into(binding.sendMessage)
+        // -----------------
+
         val db = Firebase.firestore
         val auth = Firebase.auth
 
@@ -93,7 +101,7 @@ class HomeFragment : Fragment() {
                                 showConfirmationDialog("send")
                             }
                         }else{
-                            //todo: empty contact dialog
+                            showCustomDialog("add contacts")
                         }
                     }
             }
@@ -181,7 +189,7 @@ class HomeFragment : Fragment() {
         button.setOnClickListener {
             when (button.text.toString()) {
                 "Add" -> {
-                    //findNavController().navigate(R.id.)
+                    // todo findNavController().navigate(R.id.)
                 }
                 else -> dialog.dismiss()
             }
@@ -197,9 +205,11 @@ class HomeFragment : Fragment() {
 
             .setNegativeButton("Yes") { dialog, which ->
                 dialog.dismiss()
+                dialog.dismiss()
                 showCustomDialog(string)
             }
             .setPositiveButton("No") { dialog, which ->
+                dialog.dismiss()
                 dialog.dismiss()
             }
             .show()

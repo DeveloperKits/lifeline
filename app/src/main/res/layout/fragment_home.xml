@@ -127,7 +127,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/emergencyNum"
-            app:srcCompat="@drawable/logo" />
+            android:src="@drawable/logo"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/needHelpTextView"

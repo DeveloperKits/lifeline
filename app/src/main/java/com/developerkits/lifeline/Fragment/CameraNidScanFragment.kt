@@ -2,6 +2,7 @@ package com.developerkits.lifeline.Fragment
 
 import android.Manifest
 import android.R.attr
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,9 +16,12 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.AspectRatio
@@ -56,7 +60,7 @@ class CameraNidScanFragment : Fragment() {
     private lateinit var bitmap: Bitmap
     private lateinit var type: String
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var progressDialog: ProgressDialog
+    private lateinit var progressDialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,10 +83,6 @@ class CameraNidScanFragment : Fragment() {
             activityResultLauncher.launch(REQUIRED_PERMISSIONS)
         }
 
-        progressDialog = ProgressDialog(requireContext()).apply {
-
-        }
-
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
@@ -93,21 +93,20 @@ class CameraNidScanFragment : Fragment() {
             if (binding.submit.text == "Capture") {
                 captureImage()
             } else if (binding.submit.text == "Submit") {
+                progressDialog.show()
 
                 if (isAllAreConverted) {
-                    // add all value in share preference and go NidScan Fragment
 
                     // Convert infoMap to JSON string
                     val infoMapJson = Gson().toJson(infoMap)
                     // Save JSON string to SharedPreferences
                     editor.putString("infoMap", infoMapJson)
 
-                    // Convert Bitmap to Base64 and save it to SharedPreferences
-                    val base64String = bitmapToBase64(bitmap)
                     editor.putString("bitmap_key", bitmap.toString())
 
                     editor.apply()
 
+                    progressDialog.dismiss() // todo say error after add
                     findNavController().navigate(R.id.cameraNidScan_to_NIDScan)
 
                 }else if(type == "Back"){
@@ -169,7 +168,6 @@ class CameraNidScanFragment : Fragment() {
                     val buffer = image.planes[0].buffer
                     val bytes = ByteArray(buffer.remaining())
                     buffer.get(bytes)
-                    //Todo : There image crop doesn't work and also some problem have in view
                     // add loading
                     bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                     binding.previewImage.visibility = View.VISIBLE
@@ -335,4 +333,25 @@ class CameraNidScanFragment : Fragment() {
         }
     }
 
+    // Create an AlertDialog for the progress dialog
+    private fun initProgressDialog() {
+        // Create a ProgressBar programmatically
+        val progressBar = ProgressBar(context).apply {
+            isIndeterminate = true
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = Gravity.CENTER
+            }
+        }
+
+        // Create an AlertDialog for the progress dialog
+        progressDialog = AlertDialog.Builder(requireContext()).apply {
+            setTitle("Detecting text...")
+            setMessage("Please wait some moment!")
+            setView(progressBar)
+            setCancelable(false)
+        }.create()
+    }
 }
