@@ -186,7 +186,15 @@ class OTP_verificationFragment : Fragment() {
                     editor.apply()
                     progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Verification Successful", Toast.LENGTH_LONG).show()
-                    findNavController().navigate(R.id.OTP_verification_to_NIDScan)
+
+                    Log.d("UserUID", task.result.user!!.uid)
+                    if (arguments?.getString("authType") == "login"){
+                        editor.putBoolean("isFullRegistrationComplete", true)
+                        editor.apply()
+                        findNavController().navigate(R.id.OTP_verificationFragment_to_homeFragment)
+                    }else {
+                        findNavController().navigate(R.id.OTP_verification_to_NIDScan)
+                    }
 
                 } else {
                     // Sign in failed

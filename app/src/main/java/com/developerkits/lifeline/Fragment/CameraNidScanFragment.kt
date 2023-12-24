@@ -121,6 +121,9 @@ class CameraNidScanFragment : Fragment() {
             binding.submit.text = "Capture"
         }
 
+        binding.backButton.setOnClickListener{
+            findNavController().navigate(R.id.cameraNidScan_to_NIDScan)
+        }
     }
 
     private fun startCamera(viewFinder: PreviewView) {

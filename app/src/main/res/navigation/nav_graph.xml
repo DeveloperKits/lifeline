@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/NIDScanFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/registrationFragment"
@@ -13,6 +13,9 @@
         <action
             android:id="@+id/registration_to_OTP_verification"
             app:destination="@id/OTP_verificationFragment" />
+        <action
+            android:id="@+id/registrationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
 
     </fragment>
     <fragment
@@ -38,6 +41,9 @@
         <action
             android:id="@+id/OTP_verification_to_registration"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/OTP_verificationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/NIDScanFragment"
@@ -126,5 +132,16 @@
         <action
             android:id="@+id/action_detailsFragment_to_aidFragment"
             app:destination="@id/aidFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.developerkits.lifeline.Fragment.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/loginFragment_to_OTP_verificationFragment"
+            app:destination="@id/OTP_verificationFragment" />
     </fragment>
 </navigation>

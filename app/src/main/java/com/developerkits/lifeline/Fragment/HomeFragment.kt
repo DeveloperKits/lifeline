@@ -122,6 +122,7 @@ class HomeFragment : Fragment() {
                     val longitude = location.longitude
 
                     mapLink = "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"
+                    Log.d("maps", mapLink)
                 }
             }
         }else{
@@ -189,7 +190,8 @@ class HomeFragment : Fragment() {
         button.setOnClickListener {
             when (button.text.toString()) {
                 "Add" -> {
-                    // todo findNavController().navigate(R.id.)
+                    // todo findNavController().navigate(R.id.) error
+                    dialog.dismiss()
                 }
                 else -> dialog.dismiss()
             }

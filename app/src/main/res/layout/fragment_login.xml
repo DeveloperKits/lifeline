@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Fragment.RegistrationFragment">
+        tools:context=".Fragment.LoginFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/forty_dp"
             android:fontFamily="@font/poppins"
-            android:text="@string/register"
+            android:text="Login"
             android:textColor="@color/black_text"
             android:textSize="35sp"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -45,42 +46,6 @@
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/email"
-            android:textSize="14sp"
-            android:layout_marginTop="@dimen/forty_dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="?attr/textInputOutlinedStyle"
-            android:id="@+id/email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:hintTextColor="@color/app_main_color"
-            app:boxCornerRadiusBottomEnd="@dimen/ten_dp"
-            app:boxCornerRadiusBottomStart="@dimen/ten_dp"
-            app:boxCornerRadiusTopEnd="@dimen/ten_dp"
-            app:boxCornerRadiusTopStart="@dimen/ten_dp"
-            app:endIconMode="clear_text"
-            app:boxStrokeColor="@color/app_main_color"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintEnd_toStartOf="@id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:textIsSelectable="true"
-                android:fontFamily="@font/poppins_medium"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/number"
@@ -116,9 +81,9 @@
             android:fontFamily="@font/poppins_medium"
             android:text="@string/number"
             android:textSize="14sp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="60dp"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -150,7 +115,7 @@
             android:id="@+id/registerButton"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:text="@string/register"
+            android:text="Login"
             android:fontFamily="@font/poppins_semibold"
             android:textAllCaps="false"
             app:backgroundTint="@color/app_main_color"
@@ -168,12 +133,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ten_dp"
             app:cornerRadius="10dp"
-            android:text="Login"
+            android:text="@string/register"
             android:textSize="16sp"
             android:fontFamily="@font/poppins_semibold"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

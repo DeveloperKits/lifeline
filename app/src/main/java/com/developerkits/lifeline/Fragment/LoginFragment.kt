@@ -1,27 +1,27 @@
 package com.developerkits.lifeline.Fragment
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.developerkits.lifeline.R
-import com.developerkits.lifeline.databinding.FragmentRegistrationBinding
+import com.developerkits.lifeline.databinding.FragmentLoginBinding
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
-class RegistrationFragment : Fragment() {
+class LoginFragment : Fragment() {
 
-    private lateinit var binding: FragmentRegistrationBinding
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRegistrationBinding.inflate(inflater, container, false)
+        // Inflate the layout for this fragment
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -29,14 +29,9 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.registerButton.setOnClickListener{
-            val email = binding.emailText.text!!
             val number = binding.numberText.text!!
 
-            if (email.isBlank()){
-                binding.emailText.error = "Email field is empty"
-                binding.emailText.requestFocus()
-
-            }else if (number.isBlank()){
+            if (number.isBlank()){
                 binding.numberText.error = "Number field is empty"
                 binding.numberText.requestFocus()
 
@@ -54,20 +49,18 @@ class RegistrationFragment : Fragment() {
                 val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
                 editor.putString("number", number.toString())
-                editor.putString("email", email.toString())
                 editor.apply()
 
                 val bundle = Bundle()
                 bundle.putString("number", number.toString())
-                bundle.putString("authType", "registration")
-                findNavController().navigate(R.id.registration_to_OTP_verification, bundle)
+                bundle.putString("authType", "login")
+                findNavController().navigate(R.id.loginFragment_to_OTP_verificationFragment, bundle)
             }
         }
 
         binding.textButton.setOnClickListener {
-            findNavController().navigate(R.id.registrationFragment_to_loginFragment)
+            findNavController().navigate(R.id.loginFragment_to_registrationFragment)
         }
     }
-
 
 }
