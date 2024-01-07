@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
 import android.telephony.SmsManager
@@ -36,7 +37,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.io.IOException
 import java.net.URL
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
@@ -72,13 +75,6 @@ class HomeFragment : Fragment() {
         val db = Firebase.firestore
         val auth = Firebase.auth
 
-        db.collection("users")
-            .document(auth.currentUser!!.uid)
-            .get()
-            .addOnSuccessListener {
-                binding.locationDetailTextView.text = "${it.getString("address")}"
-            }
-
         getLastLocation()
 
         binding.medicalHelpCard.setOnClickListener{
@@ -109,6 +105,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun getLastLocation() {
+        val db = Firebase.firestore
+        val auth = Firebase.auth
+
         val locationPermission = ContextCompat
             .checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
         val locationCoarsePermission = ContextCompat
@@ -120,6 +119,24 @@ class HomeFragment : Fragment() {
                 if (location != null) {
                     val latitude = location.latitude
                     val longitude = location.longitude
+
+                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                    try {
+                        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+                        if (addresses!!.isNotEmpty()) {
+                            val address = addresses[0]
+                            val locality = address.locality // This is the city name, like "Dhaka"
+                            val countryName = address.countryName // This is the country name
+
+                            binding.locationDetailTextView.text =
+                                "${address.locality}, ${address.countryName}"
+
+                            // Use locality and countryName as needed
+                            Log.d("LocationInfo", "City: $locality, Country: $countryName")
+                        }
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
 
                     mapLink = "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"
                     Log.d("maps", mapLink)
@@ -190,7 +207,11 @@ class HomeFragment : Fragment() {
         button.setOnClickListener {
             when (button.text.toString()) {
                 "Add" -> {
-                    // todo findNavController().navigate(R.id.) error
+                    Toast.makeText(
+                        requireContext(),
+                        "Go contacts and add first contact! Thank You.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     dialog.dismiss()
                 }
                 else -> dialog.dismiss()

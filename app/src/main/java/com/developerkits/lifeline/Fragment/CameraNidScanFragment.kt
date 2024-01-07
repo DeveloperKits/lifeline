@@ -77,6 +77,8 @@ class CameraNidScanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initProgressDialog()
+
         if (allPermissionsGranted()) {
             startCamera(binding.centeredViewFinder)
         } else {
@@ -111,6 +113,7 @@ class CameraNidScanFragment : Fragment() {
 
                 }else if(type == "Back"){
                     findNavController().navigate(R.id.cameraNidScan_to_NIDScan)
+                    progressDialog.dismiss()
                 }
 
             }

@@ -102,7 +102,7 @@
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:inputType="number|numberSigned"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +126,7 @@
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:inputType="number|numberSigned"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,7 +149,7 @@
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:inputType="number"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -173,7 +173,7 @@
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:inputType="number"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -196,7 +196,7 @@
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:inputType="number"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -220,7 +220,7 @@
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:inputType="number"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -4,7 +4,11 @@ import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.KeyEvent
@@ -15,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.developerkits.lifeline.Model.Helper
 import com.developerkits.lifeline.R
@@ -55,6 +60,7 @@ class OTP_verificationFragment : Fragment() {
 
         val number = arguments?.getString("number")
         startPhoneNumberVerification(number!!)
+        getStyledTimeText(number)
 
         binding.backButton.setOnClickListener{
             findNavController().navigate(R.id.OTP_verification_to_registration)
@@ -182,6 +188,7 @@ class OTP_verificationFragment : Fragment() {
                     // Sign in success
                     val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
+                    editor.clear()
                     editor.putString("UID", task.result.user!!.uid)
                     editor.apply()
                     progressDialog.dismiss()
@@ -203,7 +210,6 @@ class OTP_verificationFragment : Fragment() {
                         // The verification code entered was invalid
                         Toast.makeText(requireContext(), "Your verification are invalid", Toast.LENGTH_LONG).show()
                     }else{
-
                         Toast.makeText(requireContext(), "Verification Failed", Toast.LENGTH_LONG).show()
                     }
 
@@ -230,5 +236,23 @@ class OTP_verificationFragment : Fragment() {
             setView(progressBar)
             setCancelable(false) // equivalent to setCanceledOnTouchOutside(false)
         }.create()
+    }
+
+    private fun getStyledTimeText(num: String) {
+        val fullText = "An authentication code has been sent to $num"
+        val spannableString = SpannableString(fullText)
+
+        val startIndex = fullText.indexOf(num)
+        if (startIndex != -1) {
+            val endIndex = startIndex + num.length
+            spannableString.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.app_main_color)),
+                startIndex,
+                endIndex,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        binding.verificationNumber.text = spannableString
     }
 }
