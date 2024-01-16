@@ -91,6 +91,10 @@ class CameraNidScanFragment : Fragment() {
         // get type data from NidScanFragment
         type = arguments?.getString("type").toString()
 
+        if (type == "Back"){
+            binding.text.text = getString(R.string.back_side_of_nid_text)
+        }
+
         binding.submit.setOnClickListener {
             if (binding.submit.text == "Capture") {
                 captureImage()
