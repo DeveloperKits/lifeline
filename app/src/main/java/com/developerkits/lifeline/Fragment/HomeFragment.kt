@@ -3,10 +3,14 @@ package com.developerkits.lifeline.Fragment
 import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Geocoder
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.telephony.SmsManager
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -45,9 +49,10 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val contactList = ArrayList<String>()
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val PERMISSIONS_REQUEST_CODE = 100
     private var mapLink: String = " "
+    val permissionsNeeded = mutableListOf<String>()
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,7 +68,14 @@ class HomeFragment : Fragment() {
 
         //check permission and request for
         checkAndRequestPermissions()
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        if (!isLocationEnabled()) {
+            enableLocationDialog()
+        }
+
+        // Read infoMap from SharedPreferences
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        binding.locationDetailTextView.text = sharedPreferences.getString("address", null)
 
         // set up video
         Glide.with(requireContext())
@@ -104,17 +116,37 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getLastLocation() {
-        val db = Firebase.firestore
-        val auth = Firebase.auth
+    private fun enableLocationDialog() {
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_enable_location, null)
 
+        // Create the AlertDialog builder
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        dialogBuilder.setView(dialogView)
+        // Create and show the dialog
+        val dialog = dialogBuilder.create()
+        dialog.setCancelable(false)
+
+        val button = dialogView.findViewById<Button>(R.id.button2)
+
+        button.setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(intent)
+        }
+
+        dialog.show()
+    }
+
+    private fun getLastLocation() {
         val locationPermission = ContextCompat
             .checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
         val locationCoarsePermission = ContextCompat
             .checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
 
-        if (locationPermission == PackageManager.PERMISSION_GRANTED &&
-            locationCoarsePermission == PackageManager.PERMISSION_GRANTED) {
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        if (locationPermission == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
                     val latitude = location.latitude
@@ -130,6 +162,10 @@ class HomeFragment : Fragment() {
 
                             binding.locationDetailTextView.text =
                                 "${address.locality}, ${address.countryName}"
+
+                            val editor = sharedPreferences.edit()
+                            editor.putString("address", "${address.locality}, ${address.countryName}")
+                            editor.apply()
 
                             // Use locality and countryName as needed
                             Log.d("LocationInfo", "City: $locality, Country: $countryName")
@@ -256,8 +292,6 @@ class HomeFragment : Fragment() {
 
 
     private fun checkAndRequestPermissions() {
-        val permissionsNeeded = mutableListOf<String>()
-
         val locationPermission = ContextCompat
             .checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
         val locationCoarsePermission = ContextCompat
@@ -277,6 +311,7 @@ class HomeFragment : Fragment() {
         }
 
         if (permissionsNeeded.isNotEmpty()) {
+            getLastLocation()
             ActivityCompat.requestPermissions(requireActivity(), permissionsNeeded.toTypedArray(), PERMISSIONS_REQUEST_CODE)
         }
     }
@@ -299,5 +334,16 @@ class HomeFragment : Fragment() {
                 return
             }
         }
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getLastLocation()
     }
 }

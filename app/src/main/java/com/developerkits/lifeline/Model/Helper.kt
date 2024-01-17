@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 
-object Helper {
+class Helper {
     fun showToast(message: String){
 
     }

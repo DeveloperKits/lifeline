@@ -104,6 +104,10 @@ class NIDInfoFragment : Fragment() {
                         "Successfully save data!",
                         Toast.LENGTH_LONG).show()
 
+                    val editor = sharedPreferences.edit()
+                    editor.putString("address", null)
+                    editor.apply()
+
                     findNavController().navigate(R.id.action_NIDInfoFragment_to_homeFragment)
                 }
                 .addOnFailureListener {
