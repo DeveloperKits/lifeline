@@ -30,6 +30,9 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            //file: lifeline/keys/release.jks
+            //alias: key0
+            //password: lifeline
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
