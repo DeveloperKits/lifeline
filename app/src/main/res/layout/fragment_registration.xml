@@ -170,6 +170,7 @@
             app:cornerRadius="10dp"
             android:text="Login"
             android:textSize="16sp"
+            android:visibility="gone"
             android:fontFamily="@font/poppins_semibold"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"

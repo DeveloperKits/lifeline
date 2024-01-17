@@ -14,7 +14,7 @@
     <string name="demo_number_withoutPrefix">01100000000</string>
 
     <string name="otp_veri_number_text">An authentication code has been sent to</string>
-    <string name="code_resend">Code Sent. Resend Code in</string>
+    <string name="code_resend">Code sent. Please wait some time!</string>
     <string name="otp_verification">OTP Verification</string>
 
     <string name="nid_scan">NID Scan</string>

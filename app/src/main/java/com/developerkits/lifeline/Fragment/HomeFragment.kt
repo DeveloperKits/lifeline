@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.LocationManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -19,8 +20,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.MediaController
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -78,10 +81,15 @@ class HomeFragment : Fragment() {
         binding.locationDetailTextView.text = sharedPreferences.getString("address", null)
 
         // set up video
-        Glide.with(requireContext())
-            .asGif()
-            .load(R.drawable.animation_gif)
-            .into(binding.sendMessage)
+        val videoView: VideoView = binding.sendMessage as VideoView
+        val videoPath = "android.resource://com.developerkits.lifeline/" + R.raw.animated_button
+        videoView.setVideoURI(Uri.parse(videoPath))
+
+        // Enable looping
+        videoView.setOnPreparedListener { mp: MediaPlayer -> mp.isLooping = true }
+
+        // Start the video playback
+        videoView.start()
         // -----------------
 
         val db = Firebase.firestore

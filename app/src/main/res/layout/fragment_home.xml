@@ -118,16 +118,16 @@
             app:layout_constraintTop_toBottomOf="@id/emergencyHintTextView" />
 
 
-        <ImageView
+        <VideoView
             android:id="@+id/sendMessage"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginVertical="@dimen/twenty_dp"
+            android:backgroundTint="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/needHelpTextView"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/emergencyNum"
-            android:src="@drawable/animation_gif"/>
+            app:layout_constraintTop_toBottomOf="@+id/emergencyNum"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/needHelpTextView"
