@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
-import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextWatcher
@@ -21,7 +20,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.developerkits.lifeline.Model.Helper
 import com.developerkits.lifeline.R
 import com.developerkits.lifeline.databinding.FragmentOtpVerificationBinding
 import com.google.firebase.FirebaseException

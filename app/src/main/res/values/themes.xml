@@ -13,4 +13,10 @@
         <item name="android:statusBarColor">@color/app_main_color</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.RemoveSplashScreenTheme" parent="@style/Theme.LifeLine">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
 </resources>

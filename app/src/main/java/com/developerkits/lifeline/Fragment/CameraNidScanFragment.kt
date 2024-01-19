@@ -222,6 +222,7 @@ class CameraNidScanFragment : Fragment() {
 
                 // Check for the presence of "National ID Card" in the text
                 if (!recognizedText.contains("National ID Card", ignoreCase = true)) {
+                    progressDialog.dismiss()
                     addSnakeBar(
                         "Invalid document. Please ensure you capture the correct NID card.",
                         R.color.app_main_color)
@@ -232,6 +233,7 @@ class CameraNidScanFragment : Fragment() {
 
             }
             .addOnFailureListener { e ->
+                progressDialog.dismiss()
                 addSnakeBar(e.message.toString(), R.color.app_main_color)
             }
     }
@@ -280,6 +282,8 @@ class CameraNidScanFragment : Fragment() {
             isAllAreConverted = true
         }
 
+        progressDialog.dismiss()
+
         Log.i("NID Info", "Name: ${infoMap["Name"]}, " +
                 "Date of Birth: ${infoMap["Date of Birth"]}, ID No: ${infoMap["ID No"]}, Enter: $boolean")
     }
@@ -292,14 +296,6 @@ class CameraNidScanFragment : Fragment() {
             .setBackgroundTint(resources.getColor(background))
             .setActionTextColor(resources.getColor(R.color.white))
             .show()
-    }
-
-    // Convert Bitmap to Base64
-    fun bitmapToBase64(bitmap: Bitmap): String {
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-        val byteArray = byteArrayOutputStream.toByteArray()
-        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
 

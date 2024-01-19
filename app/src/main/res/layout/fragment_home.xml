@@ -118,7 +118,7 @@
             app:layout_constraintTop_toBottomOf="@id/emergencyHintTextView" />
 
 
-        <VideoView
+        <ImageView
             android:id="@+id/sendMessage"
             android:layout_width="0dp"
             android:layout_height="0dp"

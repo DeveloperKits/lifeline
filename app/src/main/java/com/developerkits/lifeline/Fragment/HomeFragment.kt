@@ -81,7 +81,11 @@ class HomeFragment : Fragment() {
         binding.locationDetailTextView.text = sharedPreferences.getString("address", null)
 
         // set up video
-        val videoView: VideoView = binding.sendMessage as VideoView
+        Glide.with(requireContext())
+            .asGif()
+            .load(R.drawable.animation_gif)
+            .into(binding.sendMessage)
+        /*val videoView: VideoView = binding.sendMessage as VideoView
         val videoPath = "android.resource://com.developerkits.lifeline/" + R.raw.animated_button
         videoView.setVideoURI(Uri.parse(videoPath))
 
@@ -89,7 +93,7 @@ class HomeFragment : Fragment() {
         videoView.setOnPreparedListener { mp: MediaPlayer -> mp.isLooping = true }
 
         // Start the video playback
-        videoView.start()
+        videoView.start()*/
         // -----------------
 
         val db = Firebase.firestore
@@ -319,7 +323,7 @@ class HomeFragment : Fragment() {
         }
 
         if (permissionsNeeded.isNotEmpty()) {
-            getLastLocation()
+            //getLastLocation()
             ActivityCompat.requestPermissions(requireActivity(), permissionsNeeded.toTypedArray(), PERMISSIONS_REQUEST_CODE)
         }
     }
