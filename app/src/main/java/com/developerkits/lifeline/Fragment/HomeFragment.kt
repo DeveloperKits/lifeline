@@ -118,8 +118,8 @@ class HomeFragment : Fragment() {
                         if (!documents.isEmpty) {
                             for (document in documents) {
                                 contactList.add(document.getString("number").toString())
-                                showConfirmationDialog("send")
                             }
+                            showConfirmationDialog("send")
                         }else{
                             showCustomDialog("add contacts")
                         }
